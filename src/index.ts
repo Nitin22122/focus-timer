@@ -1,13 +1,13 @@
 import { TimerEngine } from './engine/TimerEngine';
 
 // Singleton instance
-let timerEngine: TimerEngine | null = null;
+let timerEngineInstance: TimerEngine | null = null;
 
 export const getTimerEngine = (): TimerEngine => {
-  if (!timerEngine) {
-    timerEngine = new TimerEngine();
+  if (!timerEngineInstance) {
+    timerEngineInstance = new TimerEngine();
   }
-  return timerEngine;
+  return timerEngineInstance;
 };
 
 // For debugging

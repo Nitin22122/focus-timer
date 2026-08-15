@@ -32,15 +32,16 @@ document.addEventListener('keydown', (e) => {
   // Space to toggle timer
   if (e.target === document.body && e.key === ' ') {
     e.preventDefault();
-    const engine = (window as any).timerEngine;
-    if (engine) {
+    // Use dynamic import to avoid circular dependency
+    import('./index').then(({ getTimerEngine }) => {
+      const engine = getTimerEngine();
       const state = engine.getState();
       if (state.currentSession.isRunning) {
         engine.pauseTimer();
       } else {
         engine.startTimer();
       }
-    }
+    });
   }
   
   // Escape to close popout

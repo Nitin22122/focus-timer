@@ -48,7 +48,8 @@ module.exports = (env, argv) => {
     plugins: [
       new HtmlWebpackPlugin({
         template: './public/index.html',
-        favicon: './public/favicon.ico',
+        // Remove favicon option or use a generated one
+        // favicon: './public/favicon.ico',
         title: 'Pomodoro Timer',
         meta: {
           viewport: 'width=device-width, initial-scale=1.0',
