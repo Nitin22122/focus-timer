@@ -32,16 +32,16 @@ document.addEventListener('keydown', (e) => {
   // Space to toggle timer
   if (e.target === document.body && e.key === ' ') {
     e.preventDefault();
-    // Use dynamic import to avoid circular dependency
-    import('./index').then(({ getTimerEngine }) => {
-      const engine = getTimerEngine();
+    // Use the global timer engine
+    const engine = (window as any).timerEngine;
+    if (engine) {
       const state = engine.getState();
       if (state.currentSession.isRunning) {
         engine.pauseTimer();
       } else {
         engine.startTimer();
       }
-    });
+    }
   }
   
   // Escape to close popout
@@ -53,20 +53,8 @@ document.addEventListener('keydown', (e) => {
 // Handle messages from popout window
 window.addEventListener('message', (event) => {
   if (event.data.type === 'POPOUT_CLOSED') {
-    // Parent window can handle popout closure
     console.log('Popout window closed');
   }
 });
 
-// Service Worker registration for offline support (optional)
-if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js')
-      .then(registration => {
-        console.log('SW registered: ', registration);
-      })
-      .catch(registrationError => {
-        console.log('SW registration failed: ', registrationError);
-      });
-  });
-}
+// Remove service worker registration for now

@@ -12,14 +12,11 @@ import { PomodoroCycles } from './PomodoroCycles';
 import '../styles/TimerApp.css';
 
 export const TimerApp: React.FC = () => {
-  const [state, setState] = useState<AppState>(() => {
-    const engine = getTimerEngine();
-    return engine.getState();
-  });
+  const engine = getTimerEngine();
+  const [state, setState] = useState<AppState>(() => engine.getState());
   const [isPopout, setIsPopout] = useState(false);
   const [isZenMode, setIsZenMode] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
-  const engine = getTimerEngine();
   const popoutWindowRef = useRef<Window | null>(null);
 
   useEffect(() => {
@@ -39,33 +36,37 @@ export const TimerApp: React.FC = () => {
     engine.onComplete(handleComplete);
 
     return () => {
-      engine.destroy();
+      // Clean up
     };
-  }, []);
+  }, [engine]);
 
   const playCompletionSound = (type: string, volume: number) => {
-    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
-    
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-    
-    gainNode.gain.value = volume / 100;
-    
-    if (type === 'beep') {
-      oscillator.frequency.value = 440;
-      oscillator.type = 'square';
-    } else if (type === 'chime') {
-      oscillator.frequency.value = 523.25;
-      oscillator.type = 'sine';
-    } else if (type === 'bell') {
-      oscillator.frequency.value = 659.25;
-      oscillator.type = 'triangle';
+    try {
+      const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
+      
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+      
+      gainNode.gain.value = volume / 100;
+      
+      if (type === 'beep') {
+        oscillator.frequency.value = 440;
+        oscillator.type = 'square';
+      } else if (type === 'chime') {
+        oscillator.frequency.value = 523.25;
+        oscillator.type = 'sine';
+      } else if (type === 'bell') {
+        oscillator.frequency.value = 659.25;
+        oscillator.type = 'triangle';
+      }
+      
+      oscillator.start();
+      setTimeout(() => oscillator.stop(), 500);
+    } catch (error) {
+      console.error('Error playing sound:', error);
     }
-    
-    oscillator.start();
-    setTimeout(() => oscillator.stop(), 500);
   };
 
   const handleStart = () => {
@@ -85,25 +86,20 @@ export const TimerApp: React.FC = () => {
   };
 
   const handleSaveSubjectTime = () => {
-    // Save current subject time to logs
     if (state.currentSession.isRunning) {
       engine.pauseTimer();
     }
-    // The current session will be logged when timer completes
-    // This just resets the timer to start a new session with the same subject
     engine.resetTimer();
   };
 
   const handlePopout = () => {
     if (isPopout) {
-      // Close popout
       if (popoutWindowRef.current && !popoutWindowRef.current.closed) {
         popoutWindowRef.current.close();
       }
       setIsPopout(false);
       popoutWindowRef.current = null;
     } else {
-      // Open popout
       const width = 400;
       const height = 600;
       const left = (window.screen.width - width) / 2;
@@ -129,7 +125,6 @@ export const TimerApp: React.FC = () => {
             <body>
               <div id="root"></div>
               <script>
-                // Redirect to main app with popout mode
                 window.location.href = window.location.origin + '?popout=true';
               </script>
             </body>
@@ -256,7 +251,7 @@ export const TimerApp: React.FC = () => {
           />
 
           <SessionLogs 
-            logs={state.logs.slice(0, 5)} // Show last 5 logs
+            logs={state.logs.slice(0, 5)}
             onClear={() => engine.clearLogs()}
           />
 
