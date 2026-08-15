@@ -1,0 +1,71 @@
+.timer-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.timer-mode-label {
+  font-size: 16px;
+  font-weight: 700;
+  color: #666;
+  margin-bottom: 15px;
+  letter-spacing: 2px;
+}
+
+.zen-mode .timer-mode-label {
+  color: #aaa;
+}
+
+.timer-circle {
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+
+.timer-progress-ring {
+  transform: rotate(-90deg);
+  width: 100%;
+  height: 100%;
+}
+
+.timer-progress-bg {
+  stroke: #e0e0e0;
+}
+
+.zen-mode .timer-progress-bg {
+  stroke: #2a2a4a;
+}
+
+.timer-progress-fg {
+  transition: stroke-dashoffset 0.5s ease;
+}
+
+.timer-time {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 36px;
+  font-weight: 700;
+  color: #333;
+}
+
+.zen-mode .timer-time {
+  color: #fff;
+}
+
+.timer-status {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  font-weight: 600;
+  color: #999;
+  letter-spacing: 1px;
+}
+
+.zen-mode .timer-status {
+  color: #777;
+}

@@ -1,0 +1,23 @@
+{
+  "name": "Pomodoro Timer - GATE 2027",
+  "short_name": "Pomodoro Timer",
+  "description": "Focused study timer for GATE 2027 preparation",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f5f5f5",
+  "theme_color": "#4CAF50",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

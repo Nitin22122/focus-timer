@@ -1,0 +1,161 @@
+.settings-panel {
+  margin-top: 15px;
+  padding: 10px 0;
+}
+
+.settings-toggle {
+  width: 100%;
+  padding: 10px;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  color: #333;
+}
+
+.zen-mode .settings-toggle {
+  background: #1a1a2e;
+  border-color: #2a2a4a;
+  color: #fff;
+}
+
+.settings-toggle:hover {
+  background: #f5f5f5;
+}
+
+.zen-mode .settings-toggle:hover {
+  background: #2a2a4a;
+}
+
+.settings-content {
+  margin-top: 10px;
+  padding: 15px;
+  background: white;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+}
+
+.zen-mode .settings-content {
+  background: #1a1a2e;
+  border-color: #2a2a4a;
+}
+
+.settings-section {
+  margin-bottom: 20px;
+}
+
+.settings-section:last-child {
+  margin-bottom: 0;
+}
+
+.settings-section h4 {
+  margin: 0 0 10px 0;
+  font-size: 13px;
+  color: #666;
+}
+
+.zen-mode .settings-section h4 {
+  color: #aaa;
+}
+
+.setting-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.setting-item label {
+  font-size: 13px;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.zen-mode .setting-item label {
+  color: #aaa;
+}
+
+.settings-input {
+  width: 60px;
+  padding: 4px 8px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.zen-mode .settings-input {
+  background: #2a2a4a;
+  border-color: #3a3a5a;
+  color: #fff;
+}
+
+.settings-input-small {
+  width: 50px;
+  padding: 4px 6px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.zen-mode .settings-input-small {
+  background: #2a2a4a;
+  border-color: #3a3a5a;
+  color: #fff;
+}
+
+.setting-label {
+  font-size: 13px;
+  color: #666;
+}
+
+.zen-mode .setting-label {
+  color: #aaa;
+}
+
+.setting-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.setting-row .setting-item {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.setting-row .setting-item label {
+  font-size: 12px;
+  color: #999;
+}
+
+.zen-mode .setting-row .setting-item label {
+  color: #888;
+}
+
+.settings-actions {
+  margin-top: 15px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.settings-save-btn {
+  padding: 8px 20px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.settings-save-btn:hover {
+  background: #45a049;
+}
