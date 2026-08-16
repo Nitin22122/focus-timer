@@ -159,3 +159,73 @@
 .settings-save-btn:hover {
   background: #45a049;
 }
+
+/* Cycle Selector Styles */
+.cycle-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cycle-quick-select {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.cycle-btn {
+  padding: 6px 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 4px;
+  background: white;
+  color: #666;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  min-width: 36px;
+}
+
+.zen-mode .cycle-btn {
+  background: #1a1a2e;
+  border-color: #3a3a5a;
+  color: #aaa;
+}
+
+.cycle-btn:hover {
+  border-color: #4CAF50;
+  color: #4CAF50;
+}
+
+.cycle-btn.active {
+  background: #4CAF50;
+  border-color: #4CAF50;
+  color: white;
+}
+
+.zen-mode .cycle-btn.active {
+  background: #4CAF50;
+  border-color: #4CAF50;
+  color: white;
+}
+
+.cycle-custom {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 5px;
+  border-top: 1px dashed #e0e0e0;
+}
+
+.zen-mode .cycle-custom {
+  border-top-color: #3a3a5a;
+}
+
+.cycle-custom label {
+  font-size: 13px;
+  color: #666;
+}
+
+.zen-mode .cycle-custom label {
+  color: #aaa;
+}

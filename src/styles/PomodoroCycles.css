@@ -48,6 +48,8 @@
   border-radius: 50%;
   border: 2px solid #e0e0e0;
   transition: all 0.3s;
+  cursor: pointer;
+  position: relative;
 }
 
 .zen-mode .cycle-dot {
@@ -65,6 +67,17 @@
   animation: pulse 1.5s ease-in-out infinite;
 }
 
+.cycle-dot:hover::after {
+  content: attr(title);
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  color: #666;
+  white-space: nowrap;
+}
+
 @keyframes pulse {
   0%, 100% {
     transform: scale(1);
@@ -74,14 +87,35 @@
   }
 }
 
+.cycles-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.zen-mode .cycles-info {
+  border-top-color: #2a2a4a;
+}
+
 .cycles-subject {
-  text-align: center;
   font-size: 14px;
   font-weight: 500;
   color: #666;
-  margin-top: 8px;
 }
 
 .zen-mode .cycles-subject {
   color: #aaa;
+}
+
+.cycles-count {
+  font-size: 12px;
+  color: #999;
+  font-weight: 500;
+}
+
+.zen-mode .cycles-count {
+  color: #777;
 }

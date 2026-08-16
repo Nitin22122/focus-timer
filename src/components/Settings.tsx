@@ -14,6 +14,9 @@ export const Settings: React.FC<SettingsProps> = ({ settings, onUpdate }) => {
     onUpdate({ [key]: value });
   };
 
+  // Quick select cycles
+  const cycleOptions = [2, 3, 4, 5, 6, 8, 10];
+
   return (
     <div className="settings-panel">
       <button 
@@ -24,7 +27,7 @@ export const Settings: React.FC<SettingsProps> = ({ settings, onUpdate }) => {
       </button>
 
       {isOpen && (
-        <div className="settings-content">
+        <div className="settings-content fade-in">
           <div className="settings-section">
             <h4>Preferences</h4>
             
@@ -42,16 +45,30 @@ export const Settings: React.FC<SettingsProps> = ({ settings, onUpdate }) => {
 
           <div className="settings-section">
             <h4>POMODOROS / SESSION</h4>
-            <div className="setting-item">
-              <input
-                type="number"
-                min="1"
-                max="10"
-                value={settings.pomodorosPerSession}
-                onChange={(e) => handleChange('pomodorosPerSession', parseInt(e.target.value) || 3)}
-                className="settings-input"
-              />
-              <span className="setting-label">pomodoros per session</span>
+            <div className="cycle-selector">
+              <div className="cycle-quick-select">
+                {cycleOptions.map((num) => (
+                  <button
+                    key={num}
+                    className={`cycle-btn ${settings.pomodorosPerSession === num ? 'active' : ''}`}
+                    onClick={() => handleChange('pomodorosPerSession', num)}
+                  >
+                    {num}
+                  </button>
+                ))}
+              </div>
+              <div className="cycle-custom">
+                <label>Custom:</label>
+                <input
+                  type="number"
+                  min="1"
+                  max="20"
+                  value={settings.pomodorosPerSession}
+                  onChange={(e) => handleChange('pomodorosPerSession', parseInt(e.target.value) || 3)}
+                  className="settings-input"
+                />
+                <span className="setting-label">pomodoros per session</span>
+              </div>
             </div>
           </div>
 

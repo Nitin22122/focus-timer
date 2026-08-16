@@ -28,14 +28,19 @@ export const PomodoroCycles: React.FC<PomodoroCyclesProps> = ({
     }
   };
 
+  // Calculate time spent in current cycle
+  const getCycleTime = (): string => {
+    if (mode === 'study') {
+      return `${currentCycle > 0 ? Math.round(currentCycle * 25) : 0}m STUDY`;
+    }
+    return getModeLabel();
+  };
+
   return (
     <div className="pomodoro-cycles">
       <div className="cycles-header">
         <span className="cycles-label">POMODORO CYCLES</span>
-        <span className="cycles-time">
-          {currentCycle > 0 ? `${Math.round(currentCycle * 25)}m` : '0m'}
-          {mode === 'study' ? ' STUDY' : ` ${getModeLabel()}`}
-        </span>
+        <span className="cycles-time">{getCycleTime()}</span>
       </div>
       <div className="cycles-progress">
         {Array.from({ length: totalCycles }, (_, i) => (
@@ -43,10 +48,16 @@ export const PomodoroCycles: React.FC<PomodoroCyclesProps> = ({
             key={i}
             className={`cycle-dot ${i < currentCycle ? 'completed' : ''} 
                        ${i === currentCycle && mode === 'study' ? 'active' : ''}`}
+            title={`Cycle ${i + 1} of ${totalCycles}`}
           />
         ))}
       </div>
-      <div className="cycles-subject">{currentSubject}</div>
+      <div className="cycles-info">
+        <span className="cycles-subject">{currentSubject}</span>
+        <span className="cycles-count">
+          {currentCycle} / {totalCycles} cycles
+        </span>
+      </div>
     </div>
   );
 };

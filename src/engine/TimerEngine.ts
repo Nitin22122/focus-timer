@@ -263,9 +263,6 @@ export class TimerEngine {
         // Switch to short break
         this.switchMode('shortBreak');
       }
-    } else {
-      // Break completed, switch back to study
-      this.switchMode('study');
     }
 
     // Notify completion
