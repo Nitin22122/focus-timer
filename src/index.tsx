@@ -22,7 +22,7 @@ if (isPopout) {
   });
 }
 
-// Keyboard shortcuts - use global reference
+// Keyboard shortcuts
 document.addEventListener('keydown', (e) => {
   if (e.target === document.body && e.key === ' ') {
     e.preventDefault();

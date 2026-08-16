@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { getTimerEngine } from '../engine';
+import { getTimerEngine } from '../engine';  // Direct import
 import { AppState, TimerMode } from '../types';
 import { TimerDisplay } from './TimerDisplay';
 import { Controls } from './Controls';
@@ -12,7 +12,7 @@ import { PomodoroCycles } from './PomodoroCycles';
 import '../styles/TimerApp.css';
 
 export const TimerApp: React.FC = () => {
-  // Get engine instance once
+  // Get engine instance
   const engine = getTimerEngine();
   const [state, setState] = useState<AppState>(() => engine.getState());
   const [isPopout, setIsPopout] = useState(false);
