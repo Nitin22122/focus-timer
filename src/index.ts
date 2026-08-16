@@ -1,5 +1,4 @@
-// This file exports everything from a single entry point
-export * from './engine/TimerEngine';
+export { getTimerEngine, TimerEngine } from './engine';
 export * from './types';
 export * from './utils/constants';
 export * from './utils/helpers';

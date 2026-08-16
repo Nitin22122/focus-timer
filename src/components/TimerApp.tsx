@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { getTimerEngine } from '../index';
+import { getTimerEngine } from '../engine';
 import { AppState, TimerMode } from '../types';
 import { TimerDisplay } from './TimerDisplay';
 import { Controls } from './Controls';
@@ -12,23 +12,22 @@ import { PomodoroCycles } from './PomodoroCycles';
 import '../styles/TimerApp.css';
 
 export const TimerApp: React.FC = () => {
+  // Get engine instance once
   const engine = getTimerEngine();
   const [state, setState] = useState<AppState>(() => engine.getState());
   const [isPopout, setIsPopout] = useState(false);
   const [isZenMode, setIsZenMode] = useState(false);
-  const [showSettings, setShowSettings] = useState(false);
   const popoutWindowRef = useRef<Window | null>(null);
 
   useEffect(() => {
-    // Subscribe to timer updates
     const handleTick = (newState: AppState) => {
       setState(newState);
     };
 
     const handleComplete = (mode: TimerMode) => {
-      // Play sound if enabled
-      if (state.soundSettings.enabled) {
-        playCompletionSound(state.soundSettings.soundType, state.soundSettings.volume);
+      const currentState = engine.getState();
+      if (currentState.soundSettings.enabled) {
+        playCompletionSound(currentState.soundSettings.soundType, currentState.soundSettings.volume);
       }
     };
 
@@ -36,7 +35,7 @@ export const TimerApp: React.FC = () => {
     engine.onComplete(handleComplete);
 
     return () => {
-      // Clean up
+      // Cleanup if needed
     };
   }, [engine]);
 
@@ -69,22 +68,11 @@ export const TimerApp: React.FC = () => {
     }
   };
 
-  const handleStart = () => {
-    engine.startTimer();
-  };
-
-  const handlePause = () => {
-    engine.pauseTimer();
-  };
-
-  const handleReset = () => {
-    engine.resetTimer();
-  };
-
-  const handleSubjectChange = (subject: string) => {
-    engine.setSubject(subject);
-  };
-
+  const handleStart = () => engine.startTimer();
+  const handlePause = () => engine.pauseTimer();
+  const handleReset = () => engine.resetTimer();
+  const handleSubjectChange = (subject: string) => engine.setSubject(subject);
+  
   const handleSaveSubjectTime = () => {
     if (state.currentSession.isRunning) {
       engine.pauseTimer();
@@ -136,10 +124,8 @@ export const TimerApp: React.FC = () => {
     }
   };
 
-  const handleZenMode = () => {
-    setIsZenMode(!isZenMode);
-  };
-
+  const handleZenMode = () => setIsZenMode(!isZenMode);
+  
   const handleFullscreen = () => {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen();
@@ -155,25 +141,13 @@ export const TimerApp: React.FC = () => {
           <h1>DAILY FOCUS</h1>
         </div>
         <div className="app-controls">
-          <button 
-            className="control-btn" 
-            onClick={handlePopout}
-            title="Popout"
-          >
+          <button className="control-btn" onClick={handlePopout} title="Popout">
             {isPopout ? '📌' : '📎'}
           </button>
-          <button 
-            className="control-btn" 
-            onClick={handleZenMode}
-            title="Zen Mode"
-          >
+          <button className="control-btn" onClick={handleZenMode} title="Zen Mode">
             🧘
           </button>
-          <button 
-            className="control-btn" 
-            onClick={handleFullscreen}
-            title="Fullscreen"
-          >
+          <button className="control-btn" onClick={handleFullscreen} title="Fullscreen">
             ⛶
           </button>
         </div>

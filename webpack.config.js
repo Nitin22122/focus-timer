@@ -33,18 +33,13 @@ module.exports = (env, argv) => {
         {
           test: /\.css$/,
           use: ['style-loader', 'css-loader']
-        },
-        {
-          test: /\.(png|svg|jpg|jpeg|gif|ico)$/,
-          type: 'asset/resource'
         }
       ]
     },
     plugins: [
       new HtmlWebpackPlugin({
         template: './public/index.html',
-        // Remove favicon option to avoid 404
-        title: 'Pomodoro Timer',
+        title: 'Pomodoro Timer - GATE 2027',
         meta: {
           viewport: 'width=device-width, initial-scale=1.0',
           'theme-color': '#4CAF50'

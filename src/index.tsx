@@ -3,10 +3,8 @@ import ReactDOM from 'react-dom/client';
 import { TimerApp } from './components/TimerApp';
 import './styles/global.css';
 
-// Check if we're in popout mode
 const isPopout = new URLSearchParams(window.location.search).get('popout') === 'true';
 
-// Initialize the app
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
@@ -15,11 +13,8 @@ root.render(
   </React.StrictMode>
 );
 
-// Handle popout window communication
 if (isPopout) {
   document.title = 'Pomodoro Timer - Popout';
-  
-  // Send message to parent window when popout closes
   window.addEventListener('beforeunload', () => {
     if (window.opener) {
       window.opener.postMessage({ type: 'POPOUT_CLOSED' }, '*');
@@ -27,13 +22,11 @@ if (isPopout) {
   });
 }
 
-// Handle keyboard shortcuts
+// Keyboard shortcuts - use global reference
 document.addEventListener('keydown', (e) => {
-  // Space to toggle timer
   if (e.target === document.body && e.key === ' ') {
     e.preventDefault();
-    // Use the global timer engine
-    const engine = (window as any).timerEngine;
+    const engine = (window as any).__timerEngine;
     if (engine) {
       const state = engine.getState();
       if (state.currentSession.isRunning) {
@@ -44,17 +37,13 @@ document.addEventListener('keydown', (e) => {
     }
   }
   
-  // Escape to close popout
   if (e.key === 'Escape' && isPopout) {
     window.close();
   }
 });
 
-// Handle messages from popout window
 window.addEventListener('message', (event) => {
   if (event.data.type === 'POPOUT_CLOSED') {
     console.log('Popout window closed');
   }
 });
-
-// Remove service worker registration for now
