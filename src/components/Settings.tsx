@@ -15,7 +15,7 @@ export const Settings: React.FC<SettingsProps> = ({ settings, onUpdate }) => {
   };
 
   // Quick select cycles
-  const cycleOptions = [2, 3, 4, 5, 6, 8, 10];
+  const cycleOptions = [1,2, 3, 4, 5, 6,7, 8, 10];
 
   return (
     <div className="settings-panel">
